@@ -7,13 +7,13 @@ load_dotenv();
 FIRECRAWL_API_KEY = os.getenv("FIRECRAWL_API_KEY")
 
 if not FIRECRAWL_API_KEY:
-    raise ValueError("Set FIRECRAWL_API_KEY env var")
+    raise ValueError("Set FIRECRAWL_API_KEY environment variable by creating a new .env file with no name, then follow instructions on example")
 
 fc = FirecrawlApp(api_key=FIRECRAWL_API_KEY)
 
 def scrape_url(url: str):
-    result = fc.scrape_url(url)
+    result = fc.scrape(url)
     try:
-        return result["content"]["text"]
+        return result.markdown
     except KeyError:
         return None

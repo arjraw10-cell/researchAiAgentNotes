@@ -9,13 +9,14 @@ if GROQ_API_KEY is None:
     raise ValueError("Bruh put in ur groq api key as an environment variable on the .env")
 
 client = Groq(api_key = GROQ_API_KEY)
-completion = client.chat.completions.create(
-    model="llama-3.1-8b-instant",
-    messages=[
-        {
-            "role": "user",
-            "content": "Explain how LLM's work, simply"
-        }
-    ]
-)
-print(completion.choices[0].message.content)
+def run_llm(query):
+    completion = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {
+                "role": "user",
+                "content": query
+            }
+        ]
+    )
+    return completion.choices[0].message.content
